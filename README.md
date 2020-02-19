@@ -27,6 +27,18 @@ Bash in Container ausführen
 Mit `mvn install` werden automatisch alle .war-Dateien gebaut.  
 Läuft der JBoss werden sie ebenfalls auch gleich deployed
 
+### GIT autocrlf deaktivieren
+
+In einer Bash prüfen ob autocrlf in eine Form aktiviert ist  
+`git config core.autocrlf`  
+`git config --global core.autocrlf`
+
+Ergebnis sollte false sein, falls nicht folgendes eingeben  
+`git config core.autocrlf false`  
+`git config --global core.autocrlf false` 
+
+und erneut prüfen.
+
 ## Datenbank
 
 ### Allgemein

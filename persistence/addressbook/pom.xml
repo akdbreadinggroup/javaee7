@@ -15,7 +15,7 @@
     </parent>
 
     <build>
-        <finalName>addressbook</finalName>
+        <finalName>${project.artifactId}</finalName>
 
         <plugins>
             <plugin>

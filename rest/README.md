@@ -2,8 +2,6 @@
 
 ## RESTful Services
 
-
-
 ### Annotationen
 * HTTP
     * @GET
@@ -30,5 +28,5 @@
 
 Beispiele:
 
-<http://localhost:8080/rest/users/Hans%20Dampf>
+<http://localhost:8080/rest/users/Hans%20Dampf>  
 <http://localhost:8080/rest/user?userName=Kall%20Dall>
