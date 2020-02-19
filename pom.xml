@@ -9,6 +9,7 @@
         <module>server</module>
         <module>soap</module>
         <module>rest</module>
+        <module>persistence</module>
     </modules>
 
     <properties>

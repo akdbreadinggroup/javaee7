@@ -4,32 +4,61 @@
 1. Java JDK 8 installieren
 2. Maven installieren
 3. Docker installieren
-4. Wildfly Basis Image laden (ggf. muss man sich einloggen: docker login)  
-`docker pull jboss/wildfly`
-5. Image um Admin erweitern, damit Remote Verwaltung für JBoss möglich ist.  
-Befehl muss aus dem Verzeichnis ausgeführt werden in dem die Datei Dockerfile liegt.  
-`docker build -t jboss/wildfly-admin .`
-6. Container erzeugen (startet auch gleich)  
-`docker run -p 8080:8080 -p 9990:9990 -p 8787:8787 --name jboss jboss/wildfly-admin`
+
+## Images laden und Container starten
+Ins Root-Verzeichnis des Projekt wechseln  
+ 
+ Starten der Container (Falls noch nicht vorhanden baut werden sie auch gebaut)  
+`docker-compose up`
+
+Alternativ mit `-d` um detached Log-Ausgaben in der Bash zu vermeiden  
+`docker-compose up -d`
+
+Stoppen der Container  
+`docker-compose stop`
+
+Stoppen und Container entfernen  
+`docker-compose down`
+
+Bash in Container ausführen  
+`docker exec -it rg-mssql bash`
 
 ## Build & Deployment
 Mit `mvn install` werden automatisch alle .war-Dateien gebaut.  
 Läuft der JBoss werden sie ebenfalls auch gleich deployed
 
-## JBoss
-### Starten & Stoppen
-Starten und stoppen kann man den Container mit  
-`docker start jboss`  
-`docker stop jboss`
-### JBoss Web Management
-### Adresse
-<http://localhost:9990>
+## Datenbank
+
+### Allgemein
+Verwendetes DBMS ist MSSQL-2019
+
 ### Login
+
+URL für **addressbook** Datenbank  
+<jdbc:sqlserver://localhost:1433;databaseName=addressbook>
+
+Benutzer | Passwort
+---------| -------------
+sa       | ReadingGroupDB2020  
+Benutzer | Passwort123
+
+(*Benutzer* soweit möglich verwenden)  
+Siehe auch *docker-compose.yml*
+
+## JBoss
+
+### JBoss Web Management
+
+#### Adresse
+<http://localhost:9990>
+
+#### Login
 Benutzer | Passwort
 ---------| -------------
  admin   | 1234
 
 ## Informationen
+
 ### Project Structure
 (Ctrl+Alt+Shift+S)  
 Project SDK: 1.8  

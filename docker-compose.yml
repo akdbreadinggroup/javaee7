@@ -1,0 +1,25 @@
+version: '3.7'
+
+services:
+
+  mssql:
+    container_name: rg-mssql
+    image: reading-group/mssql
+    build: ./docker/mssql
+    ports:
+      - 1433:1433
+    env_file:
+      - 'mssql.env'
+
+  jboss:
+    container_name: rg-jboss
+    image: reading-group/jboss
+    build: ./docker/jboss
+    depends_on:
+      - mssql
+    env_file:
+      - 'mssql.env'
+    ports:
+      - 8080:8080
+      - 9990:9990
+      - 8787:8787
