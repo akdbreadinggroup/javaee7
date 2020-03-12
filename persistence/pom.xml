@@ -16,6 +16,7 @@
 
     <modules>
         <module>addressbook</module>
+        <module>webshop</module>
     </modules>
 
 </project>

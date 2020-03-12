@@ -29,6 +29,7 @@ echo "======= START ADDRESSBOOK DB CONFIGURATION ========" | tee -a ./config.log
 echo "======= START ADDRESSBOOK CSV IMPORT =======" | tee -a ./config.log
 # Importiere Daten aus der CSV-Datei
 /opt/mssql-tools/bin/bcp addressbook.dbo.Contact in "/usr/config/addressbook/Contacts.csv" -c -t',' -S localhost -U sa -P $SA_PASSWORD
+/opt/mssql-tools/bin/bcp addressbook.dbo.Product in "/usr/config/addressbook/Products.csv" -c -t',' -S localhost -U sa -P $SA_PASSWORD
 
 
 echo "======= MSSQL CONFIG COMPLETE =======" | tee -a ./config.log
