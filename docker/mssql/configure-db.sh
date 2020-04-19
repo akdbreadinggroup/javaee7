@@ -1,17 +1,20 @@
 #!/bin/bash
 
 # Warten bis MSSQL-Server gestartet hat
-export STATUS=1
-i=0
+sleep 10s
 
-while [[ $STATUS -ne 0 ]] && [[ $i -lt 30 ]]; do
+export STATUS=1
+i=10
+
+while [[ $STATUS -ne 0 ]] && [[ $i -lt 120 ]]; do
 	i=$i+1
 	/opt/mssql-tools/bin/sqlcmd -t 1 -U sa -P $SA_PASSWORD -Q "select 1" >> /dev/null
 	STATUS=$?
+	sleep 1s
 done
 
 if [ $STATUS -ne 0 ]; then 
-	echo "Error: MSSQL Server took more than 30 seconds to start up."
+	echo "Error: MSSQL Server took more than 120 seconds to start up."
 	exit 1
 fi
 echo "======= MSSQL SERVER STARTED ========" | tee -a ./config.log

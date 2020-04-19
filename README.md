@@ -27,7 +27,11 @@ Bash in Container ausführen
 Mit `mvn install` werden automatisch alle .war-Dateien gebaut.  
 Läuft der JBoss werden sie ebenfalls auch gleich deployed
 
-### GIT autocrlf deaktivieren
+### Line Separator
+Die Skripte, die in den Linux Containern laufen, dürfen keine CRLF-Zeilenenden haben. Daher sicherstellen,
+dass die Dateien nur mit '\n' am Zeilenende abgespeichert werden und bei git autocrlf deaktivieren.
+
+#### GIT autocrlf deaktivieren
 
 In einer Bash prüfen ob autocrlf in eine Form aktiviert ist  
 `git config core.autocrlf`  
