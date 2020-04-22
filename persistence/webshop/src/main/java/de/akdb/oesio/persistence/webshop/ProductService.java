@@ -1,5 +1,8 @@
 package de.akdb.oesio.persistence.webshop;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ejb.Stateless;
@@ -13,6 +16,8 @@ import java.util.List;
 
 @Stateless
 public class ProductService {
+    private static final Logger LOG = LoggerFactory.getLogger(ProductService.class);
+
     @PersistenceContext(unitName = "webshop-pu")
     EntityManager em;
 
@@ -40,11 +45,11 @@ public class ProductService {
 
     @PostConstruct
     void startup() {
-        System.out.println("PostConstruct");
+        LOG.warn("PostConstruct: " + System.identityHashCode(this));
     }
 
     @PreDestroy
     void shutdown() {
-        System.out.println("PreDestroy");
+        LOG.warn("PreDestroy: " + System.identityHashCode(this));
     }
 }

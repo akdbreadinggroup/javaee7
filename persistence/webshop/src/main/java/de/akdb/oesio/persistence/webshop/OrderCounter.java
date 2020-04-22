@@ -1,12 +1,18 @@
 package de.akdb.oesio.persistence.webshop;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
-import javax.inject.Singleton;
+import javax.ejb.Singleton;
+
 
 //@startup
 @Singleton
 public class OrderCounter {
+    private static final Logger LOG = LoggerFactory.getLogger(OrderCounter.class);
+
     int count;
 
     public void increment() {
@@ -23,11 +29,11 @@ public class OrderCounter {
 
     @PostConstruct
     void startup() {
-        System.out.println("PostConstruct");
+        LOG.warn("PostConstruct: " + System.identityHashCode(this));
     }
 
     @PreDestroy
     void shutdown() {
-        System.out.println("PreDestroy");
+        LOG.warn("PreDestroy: " + System.identityHashCode(this));
     }
 }

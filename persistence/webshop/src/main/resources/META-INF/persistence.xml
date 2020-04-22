@@ -6,5 +6,6 @@
         <provider>org.hibernate.ejb.HibernatePersistence</provider>
         <jta-data-source>java:jboss/datasources/MssqlDS</jta-data-source>
         <class>de.akdb.oesio.persistence.webshop.Product</class>
+        <class>de.akdb.oesio.persistence.webshop.Order</class>
     </persistence-unit>
 </persistence>

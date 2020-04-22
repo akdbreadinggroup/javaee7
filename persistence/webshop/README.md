@@ -2,11 +2,11 @@
 
 ## Rest Schnittstelle
 
-### Alle Einträge der Tabelle OrderItem
+### Alle Einträge der Tabelle Product
 <http://localhost:8080/webshop/order/all>
 
-### Einen Eintrag anhand der ID
-<http://localhost:8080/addressbook/contact/{id}>  
+### Anzahl der Käufe
+<http://localhost:8080/webshop/order/count>
 
-also z.B.  
-<http://localhost:8080/addressbook/contact/1>
+### Produkte kaufen
+<http://localhost:8080/webshop/order/buy?buyer={buyer}&id={id}&amount={amount}>
