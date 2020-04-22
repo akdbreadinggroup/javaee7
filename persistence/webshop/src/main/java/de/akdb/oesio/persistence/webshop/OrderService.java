@@ -5,14 +5,17 @@ import org.slf4j.LoggerFactory;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
-import javax.ejb.Stateless;
-import javax.ejb.TransactionAttribute;
-import javax.ejb.TransactionAttributeType;
+import javax.annotation.Resource;
+import javax.ejb.*;
+import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 
+//@Dependent // geht auch, dann muss das Transaktionsattribut an der Methode anders spezifiziert werden als im EJB Fall und kann nicht weggelassen werden
 @Stateless
+//@TransactionManagement(TransactionManagementType.BEAN)// gibt bei EJBs Fehler
 public class OrderService {
     private static final Logger LOG = LoggerFactory.getLogger(OrderService.class);
 
@@ -24,8 +27,12 @@ public class OrderService {
     @Inject
     ProductService productService;
 
-    @TransactionAttribute(TransactionAttributeType.REQUIRED)
-    public double buy(String buyer, int itemId, int amount) throws Exception {
+    @Resource
+    private SessionContext context;
+
+   // @Transactional(Transactional.TxType.REQUIRED)
+    @TransactionAttribute(TransactionAttributeType.REQUIRED) // Default bei EJBs
+    public String buy(String buyer, int itemId, int amount) throws Exception {
 
         if (buyer == null || amount <= 0 || !itemVorhanden(itemId)) {
             throw new Exception("Ohoh? Geht nicht!");
@@ -33,7 +40,7 @@ public class OrderService {
 
         orderCounter.increment();
         createOrder(buyer, itemId, amount);
-        return amount * getPrice(itemId);
+        return "Kosten: " + amount * getPrice(itemId) + " erledigt von Orderservice: " + System.identityHashCode(this);
     }
 
     private boolean itemVorhanden(int itemId) {

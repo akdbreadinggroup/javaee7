@@ -3,12 +3,17 @@ package de.akdb.oesio.persistence.webshop;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.Resource;
 import javax.inject.Inject;
+import javax.transaction.UserTransaction;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Request;
+import javax.ws.rs.core.UriInfo;
 import java.util.stream.Collectors;
 
 @Path("/order")
@@ -20,6 +25,14 @@ public class ProductRest {
     private OrderCounter orderCounter;
     @Inject
     private OrderService orderService;
+
+    @Context
+    private UriInfo uriInfo;
+    @Context
+    private Request request;
+
+    @Resource
+    private UserTransaction transaction;
 
     public ProductRest() {
     }
@@ -37,8 +50,8 @@ public class ProductRest {
     @Path("/buy")
     public String buy(@QueryParam("buyer") String buyer, @QueryParam("id") int id, @QueryParam("amount") int amount) {
         try {
-            double cost = orderService.buy(buyer, id, amount);
-            return "<html lang=\"en\"><body>Guter Kauf. Kosten: " + cost + "</body></html>";
+            String orderResult = orderService.buy(buyer, id, amount);
+            return "<html lang=\"en\"><body>Guter Kauf. " + orderResult + "</body></html>";
         } catch (Exception e) {
             LOG.error("Exception", e);
             return "<html lang=\"en\"><body> <h1>" + e.getMessage() + "</h1></body></html>";
