@@ -6,12 +6,13 @@ import org.slf4j.LoggerFactory;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.annotation.Resource;
-import javax.ejb.*;
-import javax.enterprise.context.Dependent;
+import javax.ejb.SessionContext;
+import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.transaction.Transactional;
 
 //@Dependent // geht auch, dann muss das Transaktionsattribut an der Methode anders spezifiziert werden als im EJB Fall und kann nicht weggelassen werden
 @Stateless
@@ -23,6 +24,8 @@ public class OrderService {
     private EntityManager em;
     @Inject
     private OrderCounter orderCounter;
+    @Inject
+    private OrderAktion orderAktion;
 
     @Inject
     ProductService productService;
@@ -30,7 +33,7 @@ public class OrderService {
     @Resource
     private SessionContext context;
 
-   // @Transactional(Transactional.TxType.REQUIRED)
+    // @Transactional(Transactional.TxType.REQUIRED)
     @TransactionAttribute(TransactionAttributeType.REQUIRED) // Default bei EJBs
     public String buy(String buyer, int itemId, int amount) throws Exception {
 
@@ -39,7 +42,8 @@ public class OrderService {
         }
 
         orderCounter.increment();
-        createOrder(buyer, itemId, amount);
+        orderAktion.createOrder(buyer, itemId, amount);
+        orderAktion.exceptionBeiSchleichtemKaeufer(buyer);
         return "Kosten: " + amount * getPrice(itemId) + " erledigt von Orderservice: " + System.identityHashCode(this);
     }
 
@@ -50,15 +54,6 @@ public class OrderService {
     private double getPrice(int itemId) {
         Product product = em.find(Product.class, itemId);
         return product.getPrize();
-    }
-
-    private Order createOrder(String buyer, int itemId, int amount) {
-        Order order = new Order();
-        order.setAmount(amount);
-        order.setBuyer(buyer);
-        order.setItemId(itemId);
-        em.persist(order);
-        return order;
     }
 
     @PostConstruct
