@@ -9,6 +9,8 @@
         <class>de.akdb.oesio.persistence.entities.GeneratedIdChild</class>
         <class>de.akdb.oesio.persistence.entities.UuidParent</class>
         <class>de.akdb.oesio.persistence.entities.UuidChild</class>
+        <class>de.akdb.oesio.persistence.entities.Employee</class>
+        <class>de.akdb.oesio.persistence.entities.ParkingSpace</class>
         <properties>
             <property name="hibernate.archive.autodetection" value="class"/>
             <property name="hibernate.dialect" value="org.hibernate.dialect.SQLServerDialect"/>
