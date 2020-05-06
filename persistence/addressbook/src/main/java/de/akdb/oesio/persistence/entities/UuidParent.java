@@ -10,7 +10,7 @@ import static javax.persistence.CascadeType.ALL;
 @Entity
 public class UuidParent extends BaseUUIDEntity {
     @OneToMany(cascade = {ALL}, mappedBy = "parent")
-    private Set<UuidChild> children = new HashSet<>();
+    private final Set<UuidChild> children = new HashSet<>();
 
     public Set<UuidChild> getChildren() {
         return children;

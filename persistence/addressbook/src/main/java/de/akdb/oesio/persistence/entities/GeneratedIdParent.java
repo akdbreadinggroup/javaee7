@@ -10,7 +10,7 @@ import static javax.persistence.CascadeType.ALL;
 @Entity
 public class GeneratedIdParent extends BaseGeneratedIdEntity {
     @OneToMany(cascade = {ALL}, mappedBy = "parent")
-    private Set<GeneratedIdChild> children = new HashSet<>();
+    private final Set<GeneratedIdChild> children = new HashSet<>();
 
     public Set<GeneratedIdChild> getChildren() {
         return children;

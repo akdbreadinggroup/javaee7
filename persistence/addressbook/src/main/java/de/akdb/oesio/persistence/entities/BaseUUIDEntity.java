@@ -7,7 +7,7 @@ import java.util.UUID;
 @MappedSuperclass
 public abstract class BaseUUIDEntity extends BaseEntity<UUID> {
     @Id
-    private UUID id;
+    private final UUID id;
 
     protected BaseUUIDEntity() {
         this.id = UUID.randomUUID();
