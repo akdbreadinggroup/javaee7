@@ -1,26 +1,17 @@
 package de.akdb.oesio.persistence.entities;
 
-import javax.persistence.*;
-
-import static javax.persistence.GenerationType.IDENTITY;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 
 @Entity
-public class GeneratedIdChild extends BaseEntity<Long> {
-
-    @Id
-    @GeneratedValue(strategy = IDENTITY)
-    private Long id;
+public class GeneratedIdChild extends BaseGeneratedIdEntity {
 
     @Column
     private String name;
 
     @ManyToOne
     private GeneratedIdParent parent;
-
-    @Override
-    public Long getId() {
-        return id;
-    }
 
     public void setParent(GeneratedIdParent parent) {
         this.parent = parent;
