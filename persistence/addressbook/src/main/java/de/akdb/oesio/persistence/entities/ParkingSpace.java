@@ -1,17 +1,18 @@
 package de.akdb.oesio.persistence.entities;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 
 @Entity
 public class ParkingSpace extends BaseUUIDEntity {
-    //    @OneToOne(mappedBy = "parkingSpace")
-    //    private Employee employee;
-    //
-    //    public Employee getEmployee() {
-    //        return employee;
-    //    }
-    //
-    //    public void setEmployee(Employee employee) {
-    //        this.employee = employee;
-    //    }
+    @Column
+    private String position;
+
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
+    }
 }
