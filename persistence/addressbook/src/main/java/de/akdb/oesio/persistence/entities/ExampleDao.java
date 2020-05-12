@@ -11,7 +11,7 @@ public class ExampleDao {
     @PersistenceContext(unitName = "server-pu")
     private EntityManager em;
 
-    ExampleDao(EntityManager em) {
+    protected ExampleDao(EntityManager em) {
         this.em = em;
     }
 

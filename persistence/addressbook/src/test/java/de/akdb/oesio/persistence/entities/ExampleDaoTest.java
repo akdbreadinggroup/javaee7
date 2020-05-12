@@ -1,33 +1,13 @@
 package de.akdb.oesio.persistence.entities;
-import org.assertj.core.api.ThrowableAssert.ThrowingCallable;
-import org.hibernate.LazyInitializationException;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
+
 import org.junit.jupiter.api.Test;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import java.util.function.Supplier;
-
-import static javax.persistence.Persistence.createEntityManagerFactory;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-class ExampleDaoTest {
-    private EntityManagerFactory testEmFactory;
-    private EntityManager testEm;
-    private ExampleDao dao;
+class ExampleDaoTest extends AbstractExampleDaoTest {
 
-    @BeforeEach
-    void setUp() {
-        createEntityManager();
-        dao = new ExampleDao(testEm);
-    }
-
-    @AfterEach
-    void tearDown() {
-        cleanupEntityManager();
+    ExampleDaoTest() {
+        super("entities-pu");
     }
 
     @Test
@@ -128,48 +108,4 @@ class ExampleDaoTest {
         assertLazyInitialized(() -> employeeFromDb.getParkingSpace().getPosition());
     }
 
-    private void runInTransaction(Runnable runnable) {
-        runInTransaction(() -> {
-            runnable.run();
-            return null;
-        });
-    }
-
-    @SuppressWarnings("UnusedReturnValue")
-    private <T> T runInTransaction(Supplier<T> supplier) {
-        EntityTransaction transaction = testEm.getTransaction();
-        transaction.begin();
-        try {
-            T result = supplier.get();
-            transaction.commit();
-            return result;
-        } catch (RuntimeException ex) {
-            transaction.rollback();
-            throw ex;
-        } finally {
-            testEm.clear();
-        }
-    }
-
-    private void assertLazyInitialized(ThrowingCallable check) {
-        testEm.clear();
-        assertThatThrownBy(check)
-                .isInstanceOf(LazyInitializationException.class);
-    }
-
-    private void createEntityManager() {
-        testEmFactory = createEntityManagerFactory("entities-pu");
-        testEm = testEmFactory.createEntityManager();
-    }
-
-    private void cleanupEntityManager() {
-        if (testEm != null) {
-            testEm.close();
-            testEm = null;
-        }
-        if (testEmFactory != null) {
-            testEmFactory.close();
-            testEmFactory = null;
-        }
-    }
 }
