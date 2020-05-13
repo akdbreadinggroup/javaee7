@@ -1,4 +1,4 @@
-package de.akdb.oesio.persistence.entities.collectionMapping;
+package de.akdb.oesio.persistence.entities.setsAndLists;
 
 import de.akdb.oesio.persistence.entities.BaseGeneratedIdEntity;
 

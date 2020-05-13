@@ -1,4 +1,4 @@
-package de.akdb.oesio.persistence.entities.collectionMapping;
+package de.akdb.oesio.persistence.entities.setsAndLists;
 
 import de.akdb.oesio.persistence.entities.AbstractExampleDaoTest;
 import org.junit.jupiter.api.Test;
@@ -8,15 +8,14 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-import static de.akdb.oesio.persistence.entities.collectionMapping.EmbeddableAddress.createAddress;
-import static de.akdb.oesio.persistence.entities.collectionMapping.Employee.createEmployee;
-import static java.util.Collections.singleton;
+import static de.akdb.oesio.persistence.entities.setsAndLists.EmbeddableAddress.createAddress;
+import static de.akdb.oesio.persistence.entities.setsAndLists.Employee.createEmployee;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class ExampleDaoTest extends AbstractExampleDaoTest {
 
     ExampleDaoTest() {
-        super("collection-mapping-pu");
+        super("sets-and-lists-pu");
     }
 
     @Test
@@ -44,7 +43,7 @@ class ExampleDaoTest extends AbstractExampleDaoTest {
 
         Department departmentReadFromDB = dao.get(Department.class, department.getId());
 
-        assertThat(departmentReadFromDB.getEmployees()).containsExactlyInAnyOrder(huberEntity, schmittEntity, meierEntity);
+        assertThat(departmentReadFromDB.getEmployees()).containsExactly(huberEntity, schmittEntity, meierEntity);
     }
 
 

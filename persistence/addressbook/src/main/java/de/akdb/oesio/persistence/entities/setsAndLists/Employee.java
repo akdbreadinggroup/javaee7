@@ -1,4 +1,4 @@
-package de.akdb.oesio.persistence.entities.collectionMapping;
+package de.akdb.oesio.persistence.entities.setsAndLists;
 
 import de.akdb.oesio.persistence.entities.BaseGeneratedIdEntity;
 
@@ -50,7 +50,7 @@ public class Employee extends BaseGeneratedIdEntity {
         return roles;
     }
 
-    public void addAdress(EmbeddableAddress adress) {
+    public void addAddress(EmbeddableAddress adress) {
         addresses.add(adress);
     }
 
