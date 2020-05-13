@@ -7,8 +7,10 @@ Implementierung vom Persistence Provider ersetzt werden kann.
 
 ### Sets or Collections
 
-* Basic Types
-* Embeddable Types
+Employee mit Adressen und Rollen:
+
+* Basic Types (Rollen)
+* Embeddable Types (Adressen)
  
 ### Listen
 

@@ -9,7 +9,6 @@ public class EmbeddableAddress {
     @Column(name="road")
     private String street;
 
-    //@Column(name="number")
     private int number;
 
     public String getStreet() {

@@ -5,7 +5,12 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
+import static de.akdb.oesio.persistence.entities.collectionMapping.EmbeddableAddress.createAddress;
+import static de.akdb.oesio.persistence.entities.collectionMapping.Employee.createEmployee;
+import static java.util.Collections.singleton;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class ExampleDaoTest extends AbstractExampleDaoTest {
@@ -16,30 +21,56 @@ class ExampleDaoTest extends AbstractExampleDaoTest {
 
     @Test
     void should_persist_and_return_Employee_with_Collection_and_Embeddable() {
-        Collection<EmbeddableAddress> addresses = Arrays.asList(
-                EmbeddableAddress.createAddress("Hauptstraße", 42),
-                EmbeddableAddress.createAddress("Dorfstraße", 7)
-        );
-        Collection<String> roles = Arrays.asList("Administrator", "Manager");
-        Employee entity = Employee.createEmployee("Huber", roles, addresses);
+        Employee huberEntity = createHuber(null);
 
-        runInTransaction(() -> dao.persist(entity));
+        runInTransaction(() -> dao.persist(huberEntity));
 
-        Employee readFromDB = dao.get(Employee.class, entity.getId());
+        Employee huberReadFromDB = dao.get(Employee.class, huberEntity.getId());
 
-        assertThat(readFromDB).isEqualTo(entity);
+        assertThat(huberReadFromDB).isEqualTo(huberEntity);
     }
 
     @Test
-    void should_persist_and_return_entity_with_list() {
-        Department entity = new Department();
-        entity.setName("Sales");
+    void should_persist_and_return_Department_with_ordered_Employees() {
+        Department department = new Department();
+        department.setName("Development");
 
-        runInTransaction(() -> dao.persist(entity));
+        Employee huberEntity = createHuber(department);
+        Employee schmittEntity = createSchmitt(department);
+        Employee meierEntity = createMeier(department);
+        List<Employee> employees = Arrays.asList(huberEntity, schmittEntity, meierEntity);
 
-        Department readFromDB = dao.get(Department.class, entity.getId());
+        runInTransaction(() -> dao.persist(department, huberEntity, meierEntity, schmittEntity));
 
-        assertThat(readFromDB).isEqualTo(entity);
+        Department departmentReadFromDB = dao.get(Department.class, department.getId());
+
+        assertThat(departmentReadFromDB.getEmployees()).containsExactlyInAnyOrder(huberEntity, schmittEntity, meierEntity);
+    }
+
+
+    private Employee createHuber(Department department) {
+        Collection<EmbeddableAddress> addresses = Arrays.asList(
+                createAddress("Hauptstraße", 42),
+                createAddress("Dorfstraße", 7)
+        );
+        Collection<String> roles = Arrays.asList("Administrator", "Manager");
+        return createEmployee("Huber", department, roles, addresses);
+    }
+
+    private Employee createMeier(Department department) {
+        return createEmployee(
+                "Meier",
+                department,
+                Collections.singleton("Entwickler"),
+                Collections.singleton(createAddress("Marktplatz", 1)));
+    }
+
+    private Employee createSchmitt(Department department) {
+        return createEmployee(
+                "Schmitt",
+                department,
+                Collections.singleton("Entwickler"),
+                Collections.singleton(createAddress("Landstraße", 1111)));
     }
 
 }

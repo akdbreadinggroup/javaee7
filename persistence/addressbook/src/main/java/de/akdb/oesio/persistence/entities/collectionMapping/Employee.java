@@ -22,6 +22,9 @@ public class Employee extends BaseGeneratedIdEntity {
     @ElementCollection
     private Collection<EmbeddableAddress> addresses = new LinkedList<>();
 
+    @ManyToOne
+    private Department department;
+
     public void setName(String name) {
         this.name = name;
     }
@@ -29,6 +32,14 @@ public class Employee extends BaseGeneratedIdEntity {
     public String getName() {
 
         return name;
+    }
+
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
     }
 
     public void addRole(String role) {
@@ -47,9 +58,14 @@ public class Employee extends BaseGeneratedIdEntity {
         return addresses;
     }
 
-    public static Employee createEmployee(String name, Collection<String> roles, Collection<EmbeddableAddress> addresses) {
+
+    public static Employee createEmployee(String name, Department department, Collection<String> roles, Collection<EmbeddableAddress> addresses) {
         Employee employee = new Employee();
         employee.setName(name);
+        employee.setDepartment(department);
+        if (department != null){
+            department.addEmployee(employee);
+        }
         employee.roles.addAll(roles);
         employee.addresses.addAll(addresses);
         return employee;
