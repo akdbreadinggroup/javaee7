@@ -1,11 +1,5 @@
 FROM mcr.microsoft.com/mssql/server:2019-latest
 
-# Vim Installieren
-USER root
-RUN apt-get update \
-    && apt-get install -y \
-        nmap \
-        vim
 USER mssql
 
 # config Verzeichnis erstellen

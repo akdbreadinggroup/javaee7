@@ -2,7 +2,7 @@
 
 <xsl:stylesheet version="2.0"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-                xmlns:datasources="urn:jboss:domain:datasources:5.0">
+                xmlns:datasources="urn:jboss:domain:datasources:6.0">
 
     <xsl:output method="xml" indent="yes"/>
 
@@ -13,7 +13,7 @@
                         enabled="true"
                         use-java-context="true"
                         statistics-enabled="${{wildfly.datasources.statistics-enabled:${{wildfly.statistics-enabled:false}}}}"
-                        xmlns="urn:jboss:domain:datasources:5.0">
+                        xmlns="urn:jboss:domain:datasources:6.0">
                 <connection-url>jdbc:sqlserver://${env.MSSQL_HOST:localhost}:${env.MSSQL_PORT:1433};databaseName=${env.MSSQL_DATABASE:addressbook}</connection-url>
                 <driver>mssql</driver>
                 <security>
