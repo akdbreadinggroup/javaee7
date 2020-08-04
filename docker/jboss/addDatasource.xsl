@@ -14,7 +14,7 @@
                         use-java-context="true"
                         statistics-enabled="${{wildfly.datasources.statistics-enabled:${{wildfly.statistics-enabled:false}}}}"
                         xmlns="urn:jboss:domain:datasources:6.0">
-                <connection-url>jdbc:sqlserver://${env.MSSQL_HOST:localhost}:${env.MSSQL_PORT:1433};databaseName=${env.MSSQL_DATABASE:addressbook}</connection-url>
+                <connection-url>jdbc:sqlserver://${env.MSSQL_HOST:localhost}:${env.MSSQL_PORT:1433};databaseName=${env.MSSQL_DATABASE:rgdatabase}</connection-url>
                 <driver>mssql</driver>
                 <security>
                     <user-name>${env.MSSQL_USER:sa}</user-name>

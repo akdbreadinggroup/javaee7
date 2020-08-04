@@ -24,15 +24,10 @@ echo "======= START GENERAL DB CONFIGURATION ========" | tee -a ./config.log
 # Starte Skript um DB-Schema zu erstellen
 /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P $SA_PASSWORD -d master -i setup.sql
 
+#Starte Konfiguration von db zu addressbook
+/usr/config/addressbook/configure-db.sh
 
-echo "======= START ADDRESSBOOK DB CONFIGURATION ========" | tee -a ./config.log
-# Starte Skript um DB-Schema zu erstellen
-/opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P $SA_PASSWORD -d master -i addressbook/setup.sql
-
-echo "======= START ADDRESSBOOK CSV IMPORT =======" | tee -a ./config.log
-# Importiere Daten aus der CSV-Datei
-/opt/mssql-tools/bin/bcp addressbook.dbo.Contact in "/usr/config/addressbook/Contacts.csv" -c -t',' -S localhost -U sa -P $SA_PASSWORD
-/opt/mssql-tools/bin/bcp addressbook.dbo.Product in "/usr/config/addressbook/Products.csv" -c -t',' -S localhost -U sa -P $SA_PASSWORD
-
+#Starte Konfiguration von db zu webshop
+/usr/config/webshop/configure-db.sh
 
 echo "======= MSSQL CONFIG COMPLETE =======" | tee -a ./config.log

@@ -50,8 +50,8 @@ Verwendetes DBMS ist MSSQL-2019
 
 ### Login
 
-URL für **addressbook** Datenbank  
-<jdbc:sqlserver://localhost:1433;databaseName=addressbook>
+URL für **rgdatabase** Datenbank  
+<jdbc:sqlserver://localhost:1433;databaseName=rgdatabase>
 
 Benutzer | Passwort
 ---------| -------------
