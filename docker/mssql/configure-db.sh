@@ -30,4 +30,7 @@ echo "======= START GENERAL DB CONFIGURATION ========" | tee -a ./config.log
 #Starte Konfiguration von db zu webshop
 /usr/config/webshop/configure-db.sh
 
+echo "======= START ENTITYMANAGER DB CONFIGUARTION =======" | tee -a ./config.log
+/opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P $SA_PASSWORD -d master -i entitymanager/setup.sql
+
 echo "======= MSSQL CONFIG COMPLETE =======" | tee -a ./config.log

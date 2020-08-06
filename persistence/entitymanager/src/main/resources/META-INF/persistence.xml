@@ -1,0 +1,15 @@
+<persistence version="2.1"
+             xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence_2_1.xsd">
+
+    <persistence-unit name="jta-pu">
+        <provider>org.hibernate.ejb.HibernatePersistence</provider>
+        <jta-data-source>java:jboss/datasources/MssqlDS</jta-data-source>
+        <class>de.akdb.oesio.persistence.entitymanager.entities.Zaehler</class>
+    </persistence-unit>
+    <persistence-unit name="resource-lokal-pu" transaction-type="RESOURCE_LOCAL">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <non-jta-data-source>java:jboss/datasources/MssqlDS</non-jta-data-source>
+        <class>de.akdb.oesio.persistence.entitymanager.entities.Zaehler</class>
+    </persistence-unit>
+</persistence>

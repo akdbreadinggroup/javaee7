@@ -17,6 +17,7 @@
     <modules>
         <module>addressbook</module>
         <module>webshop</module>
+        <module>entitymanager</module>
     </modules>
 
 </project>
