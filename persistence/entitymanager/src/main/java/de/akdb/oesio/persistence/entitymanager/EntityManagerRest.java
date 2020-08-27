@@ -2,6 +2,7 @@ package de.akdb.oesio.persistence.entitymanager;
 
 import de.akdb.oesio.persistence.entitymanager.beans.StatefullService;
 import de.akdb.oesio.persistence.entitymanager.beans.StatelessService;
+import de.akdb.oesio.persistence.entitymanager.beans.VerwaltungMitCmEm;
 import de.akdb.oesio.persistence.entitymanager.beans.VerwaltungResourceLocal;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -180,16 +181,16 @@ public class EntityManagerRest {
     }
 
     private String getBeispielliste() {
-        return "<h1>Beispiele</h1><ul>"
+        return "<h1>Beispiele Kapitel 6</h1><ul>"
                 + "<li><a href=\"http://127.0.0.1:8080/entitymanager/test\">Test</a></li>"
                 + "<li><a href=\"http://127.0.0.1:8080/entitymanager/reset\">Zaehler zuruecksetzen</a></li>"
                 + "<li><a href=\"http://127.0.0.1:8080/entitymanager/erhoeheZaehlerZweiMal\">[JTA, CM-EM, transaction scoped, Bsp 1]</a> Stateless Service ruft in einer Transaktion zweimal Methode in Stateless Auskunft auf, die den Zaehler hoch setzt.</li>"
                 + "<li><a href=\"http://127.0.0.1:8080/entitymanager/erhoeheZaehlerUndErhoeheZaehlerInNewTx\">[JTA, CM-EM, transaction scoped, Bsp 2]</a> Stateless Service ruft in einer Transaktion zweimal Methode in Stateless Auskunft auf, die den Zaehler hoch setzt, beim zweiten mal macht die Auskunft aber neue Transaktion auf.</li>"
-                + "<li><a href=\"http://127.0.0.1:8080/entitymanager/propagation\">[JTA, CM-EM, Propagation]</a> Persistence context wird ueber Bean Grenzen transportiert. Anders als bei assoziierten App Managed EMs ist die Reihenfolge beim flushen so garantiert.</li>"
+                + "<li><a href=\"http://127.0.0.1:8080/entitymanager/propagation\">[JTA, CM-EM, Propagation]</a> Persistence context wird ueber Bean Grenzen transportiert. Anders als bei synchronisierten App Managed EMs ist die Reihenfolge beim flushen so garantiert.</li>"
                 + "<li><a href=\"http://127.0.0.1:8080/entitymanager/keinePropagationBeiAppManagedEms\">[JTA, App-EM, Keine Propagation]</a> Persistence context wird nicht ueber Bean Grenzen transportiert.</li>"
                 + "<li><a href=\"http://127.0.0.1:8080/entitymanager/unsynchronisierteEmsMuessenExpizitGejointWerden\">[JTA, CM-EM, Unsynchronized EM]</a> Unsynchronisierte EMs muessen explizit gejoint werden.</li>"
                 + "<li><a href=\"http://127.0.0.1:8080/entitymanager/extendedscope\">[JTA, CM-EM, extended scoped]</a> Statefull Bean mit extended scoped EM haelt einen Persistence Context auch uebertransaktionen hinweg, oder wenn sich die DB geaendert hat. Wenn der extedned scope entfernt wird ist das Ergebnis anders.</li>"
-                + "<li><a href=\"http://127.0.0.1:8080/entitymanager/pccollision\">[JTA, CM-EM, PC collision]</a> Stateless Bean ruft in Transaktion Statefull Bean auf.<b>Achtung! Irgendwas stimmt noch nicht mit den StatefullService. Nach dieser Methode funktioniert er nicht mehr bis man den JBoss neu startet. </li>"
+                + "<li><a href=\"http://127.0.0.1:8080/entitymanager/pccollision\">[JTA, CM-EM, PC collision]</a> Stateless Bean ruft in Transaktion Statefull Bean auf.<b>Achtung! Irgendwas stimmt noch nicht mit den StatefullService. Nach dieser Methode funktioniert er nicht mehr bis man den JBoss neu startet.</b> </li>"
                 + "<li><a href=\"http://127.0.0.1:8080/entitymanager/resourcelocal\">[Resource local]</a> Kann man auch machen. </li>"
                 + "</ul>";
     }

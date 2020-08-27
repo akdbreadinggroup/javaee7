@@ -15,7 +15,7 @@ public class VerwaltungResourceLocal {
     public void erhoeheZaehler(int id, int differenz) {
         //EntityManagerFactory emf = Persistence.createEntityManagerFactory("resource-lokal-pu");
         EntityManager em = emf.createEntityManager();
-        em.getTransaction().begin();
+        em.getTransaction().begin();//em.getTransaction() geht nicht bei JTA
         Zaehler zaehler = em.find(Zaehler.class, id);
         zaehler.setAnzahl(zaehler.getAnzahl() + differenz);
         em.getTransaction().commit();
